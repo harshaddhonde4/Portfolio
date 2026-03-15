@@ -8,6 +8,12 @@
 /* Custom cursor only on devices with a pointer (desktop) */
 @media (hover: hover) and (pointer: fine) {
   * { cursor: none; }
+  /* Restore default cursor on entire resume page (white bg — custom cursor invisible) */
+  .resume-sheet, .resume-sheet * { cursor: default !important; }
+  .resume-sheet a { cursor: pointer !important; }
+  .print-hide, .print-hide * { cursor: default !important; }
+  .print-hide a, .print-hide button { cursor: pointer !important; }
+  body:has(.resume-sheet) { cursor: default !important; }
 }
 
 html { scroll-behavior: smooth; }
@@ -161,12 +167,12 @@ a:focus-visible, button:focus-visible {
   min-height: 297mm;
   max-width: 100%;
   margin: 0 auto;
-  padding: 14mm 16mm;
+  padding: 12mm 14mm;
   background: #ffffff;
   color: #1a1a1a;
   font-family: 'Georgia', 'Times New Roman', 'Cambria', serif;
-  font-size: 10px;
-  line-height: 1.35;
+  font-size: 11.5px;
+  line-height: 1.4;
   box-shadow: 0 4px 40px rgba(0,0,0,0.18);
   box-sizing: border-box;
 }
@@ -174,33 +180,33 @@ a:focus-visible, button:focus-visible {
 /* ── Header ── */
 .resume-header {
   text-align: center;
-  padding-bottom: 6px;
-  margin-bottom: 6px;
-  border-bottom: 2px solid #1a1a1a;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  border-bottom: 2.5px solid #1a1a1a;
 }
 .resume-header h1 {
   font-family: 'Georgia', serif;
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
   text-transform: uppercase;
   color: #111;
-  margin: 0 0 2px 0;
+  margin: 0 0 3px 0;
   line-height: 1.15;
 }
 .resume-subtitle {
-  font-size: 10.5px;
+  font-size: 12px;
   color: #444;
   font-style: italic;
-  margin: 0 0 5px 0;
+  margin: 0 0 6px 0;
   letter-spacing: 0.3px;
 }
 .resume-contact {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 3px 4px;
-  font-size: 9px;
+  gap: 4px 6px;
+  font-size: 10.5px;
   color: #333;
 }
 .resume-contact a {
@@ -215,29 +221,29 @@ a:focus-visible, button:focus-visible {
 
 /* ── Section ── */
 .resume-section {
-  margin-bottom: 5px;
+  margin-bottom: 7px;
 }
 .resume-section h2 {
   font-family: 'Georgia', serif;
-  font-size: 11.5px;
+  font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1.2px;
   color: #1a1a1a;
-  margin: 0 0 3px 0;
+  margin: 0 0 4px 0;
   padding-bottom: 2px;
   border-bottom: 1.5px solid #2c3e50;
 }
 .resume-section > p {
-  font-size: 9.5px;
+  font-size: 11px;
   color: #333;
-  margin: 2px 0 0 0;
+  margin: 3px 0 0 0;
   text-align: justify;
 }
 
 /* ── Entry (Education) ── */
 .resume-entry {
-  margin-bottom: 3px;
+  margin-bottom: 4px;
 }
 .resume-entry-header {
   display: flex;
@@ -245,11 +251,11 @@ a:focus-visible, button:focus-visible {
   align-items: baseline;
 }
 .resume-entry-header strong {
-  font-size: 10px;
+  font-size: 11.5px;
   color: #111;
 }
 .resume-date {
-  font-size: 9px;
+  font-size: 10.5px;
   color: #555;
   font-style: italic;
   flex-shrink: 0;
@@ -257,7 +263,7 @@ a:focus-visible, button:focus-visible {
 .resume-entry-sub {
   display: flex;
   justify-content: space-between;
-  font-size: 9px;
+  font-size: 10.5px;
   color: #555;
 }
 .resume-entry-sub em {
@@ -271,9 +277,9 @@ a:focus-visible, button:focus-visible {
   gap: 1px;
 }
 .resume-skill-row {
-  font-size: 9.5px;
+  font-size: 11px;
   color: #333;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 .resume-skill-cat {
   font-weight: 700;
@@ -282,13 +288,13 @@ a:focus-visible, button:focus-visible {
 
 /* ── Projects ── */
 .resume-project {
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 .resume-project .resume-entry-header strong {
-  font-size: 10px;
+  font-size: 11.5px;
 }
 .resume-github {
-  font-size: 8.5px;
+  font-size: 10px;
   color: #1a5276;
   text-decoration: none;
   flex-shrink: 0;
@@ -296,23 +302,23 @@ a:focus-visible, button:focus-visible {
 .resume-github:hover { text-decoration: underline; }
 .resume-tech {
   display: block;
-  font-size: 9px;
+  font-size: 10.5px;
   color: #555;
   font-style: italic;
-  margin: 0 0 1px 0;
+  margin: 0 0 2px 0;
 }
 
 /* ── Lists ── */
 .resume-section ul {
-  margin: 1px 0 0 0;
-  padding-left: 14px;
+  margin: 2px 0 0 0;
+  padding-left: 16px;
   list-style-type: disc;
 }
 .resume-section ul li {
-  font-size: 9px;
+  font-size: 10.5px;
   color: #333;
-  line-height: 1.35;
-  margin-bottom: 0;
+  line-height: 1.4;
+  margin-bottom: 1px;
 }
 
 /* ═══════════════════════════════════════
@@ -364,69 +370,70 @@ a:focus-visible, button:focus-visible {
   .resume-sheet {
     box-shadow: none !important;
     margin: 0 !important;
-    padding: 10mm 14mm !important;
+    padding: 10mm 12mm !important;
     width: 210mm !important;
     max-width: 210mm !important;
     min-height: 0 !important;
     border: none !important;
+    font-size: 11px !important;
   }
 
   /* ── Section sizes for single-page fit ── */
   .resume-header {
-    padding-bottom: 5px !important;
-    margin-bottom: 5px !important;
+    padding-bottom: 6px !important;
+    margin-bottom: 6px !important;
   }
   .resume-header h1 {
-    font-size: 20px !important;
-    letter-spacing: 1px !important;
-    margin-bottom: 1px !important;
+    font-size: 24px !important;
+    letter-spacing: 1.5px !important;
+    margin-bottom: 2px !important;
   }
   .resume-subtitle {
-    font-size: 10px !important;
+    font-size: 11px !important;
     margin-bottom: 4px !important;
   }
   .resume-contact {
-    font-size: 8.5px !important;
-    gap: 2px 5px !important;
+    font-size: 10px !important;
+    gap: 3px 5px !important;
   }
 
   .resume-section {
-    margin-bottom: 4px !important;
+    margin-bottom: 5px !important;
   }
   .resume-section h2 {
-    font-size: 10.5px !important;
-    margin-bottom: 2px !important;
+    font-size: 12px !important;
+    margin-bottom: 3px !important;
     padding-bottom: 1px !important;
   }
   .resume-section > p {
-    font-size: 9px !important;
-    margin-top: 1px !important;
+    font-size: 10.5px !important;
+    margin-top: 2px !important;
   }
 
-  .resume-entry { margin-bottom: 2px !important; }
+  .resume-entry { margin-bottom: 3px !important; }
   .resume-entry-header strong,
   .resume-project .resume-entry-header strong {
-    font-size: 9.5px !important;
+    font-size: 11px !important;
   }
-  .resume-date { font-size: 8.5px !important; }
-  .resume-entry-sub { font-size: 8.5px !important; }
+  .resume-date { font-size: 10px !important; }
+  .resume-entry-sub { font-size: 10px !important; }
 
   .resume-skill-row {
-    font-size: 9px !important;
-    line-height: 1.3 !important;
+    font-size: 10.5px !important;
+    line-height: 1.35 !important;
   }
 
-  .resume-project { margin-bottom: 3px !important; }
-  .resume-tech { font-size: 8.5px !important; margin-bottom: 0 !important; }
-  .resume-github { font-size: 8px !important; }
+  .resume-project { margin-bottom: 4px !important; }
+  .resume-tech { font-size: 10px !important; margin-bottom: 1px !important; }
+  .resume-github { font-size: 9.5px !important; }
 
   .resume-section ul {
     margin: 1px 0 0 0 !important;
-    padding-left: 14px !important;
+    padding-left: 15px !important;
   }
   .resume-section ul li {
-    font-size: 8.5px !important;
-    line-height: 1.3 !important;
+    font-size: 10px !important;
+    line-height: 1.35 !important;
   }
 
   .resume-skills { gap: 0 !important; }

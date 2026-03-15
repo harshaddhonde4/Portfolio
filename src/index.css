@@ -151,3 +151,25 @@ a:focus-visible, button:focus-visible {
   outline-offset: 2px;
   border-radius: 4px;
 }
+
+/* Resume page — override dark theme */
+.resume-page {
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Print styles for PDF download */
+@media print {
+  body { background: white !important; color: black !important; }
+  .print-hide, nav, .cursor, .cursor-follower { display: none !important; }
+  .resume-page {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  @page {
+    size: A4;
+    margin: 12mm 14mm;
+  }
+  a { color: #333 !important; text-decoration: none !important; }
+  h1, h2, h3 { break-after: avoid; }
+  section { break-inside: avoid; }
+}

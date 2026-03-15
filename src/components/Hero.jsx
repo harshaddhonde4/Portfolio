@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
-import { Github, Linkedin, Mail, ArrowDown } from 'lucide-react'
+import { Github, Linkedin, Mail, ArrowDown, FileDown } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export default function Hero() {
   const titleRef = useRef(null)
@@ -60,6 +61,13 @@ export default function Hero() {
           >
             Get In Touch
           </a>
+          <Link
+            to="/resume"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full border border-[#a855f7]/30 text-[#a855f7] font-cabinet font-medium text-sm hover:bg-[#a855f7]/10 hover:border-[#a855f7]/50 transition-all duration-300"
+          >
+            <FileDown size={16} />
+            Resume
+          </Link>
         </div>
 
         {/* Social links */}

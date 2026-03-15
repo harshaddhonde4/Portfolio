@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, FileDown } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 const links = ['About', 'Skills', 'Projects', 'Contact']
 
@@ -41,6 +42,13 @@ export default function Navbar() {
               {l}
             </button>
           ))}
+          <Link
+            to="/resume"
+            className="inline-flex items-center gap-1.5 text-sm font-cabinet font-medium text-white/60 hover:text-[#a855f7] transition-colors"
+          >
+            <FileDown size={14} />
+            Resume
+          </Link>
           <a
             href="mailto:dhondeharshad4@gmail.com"
             className="text-sm font-cabinet font-semibold px-4 py-2 rounded-full border border-[#00f5d4]/40 text-[#00f5d4] hover:bg-[#00f5d4]/10 transition-all"
@@ -63,6 +71,10 @@ export default function Navbar() {
               {l}
             </button>
           ))}
+          <Link to="/resume" className="inline-flex items-center gap-2 text-left text-[#a855f7] font-cabinet text-lg hover:text-[#a855f7]/80 transition-colors">
+            <FileDown size={18} />
+            Resume
+          </Link>
         </div>
       )}
     </nav>

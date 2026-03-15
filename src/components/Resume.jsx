@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, Download, Mail, Phone, Github, Linkedin, MapPin } from 'lucide-react'
+import { ArrowLeft, Download, Loader2 } from 'lucide-react'
 
 const resumeData = {
   name: 'Harshad Dhonde',
@@ -57,7 +57,7 @@ const resumeData = {
       tech: 'Python, Streamlit, LangChain, Ollama (Llama 3.2), ChromaDB',
       github: 'https://github.com/harshaddhonde4/llamalocalwithRAG',
       points: [
-        'Built a complete RAG pipeline: webpage fetching, chunk splitting (500-char, 50 overlap), local embedding generation, and ChromaDB storage',
+        'Built complete RAG pipeline: webpage fetching, chunk splitting, local embedding generation, and ChromaDB storage',
         'Integrated Llama 3.2 via Ollama for fully on-device LLM inference — no API keys, zero data leaves the machine',
         'Implemented per-URL isolated ChromaDB collections and Streamlit UI with persistent chat history',
       ],
@@ -69,7 +69,6 @@ const resumeData = {
       points: [
         'Built responsive React SPA with Redux state management; implemented JWT-based authentication with Spring Security',
         'Integrated Stripe payment gateway for secure checkout; developed RESTful APIs with Spring Boot and MySQL',
-        'Designed architecture for sticker catalog, shopping cart, and order processing system',
       ],
     },
     {
@@ -95,7 +94,7 @@ const resumeData = {
       tech: 'Spring Boot, Spring MVC, Thymeleaf, Java, Maven, Google Gemini API',
       github: 'https://github.com/harshaddhonde4/Smart-Crop-Advisory-System',
       points: [
-        'Integrated Google Gemini API for real-time, AI-driven crop recommendations based on region and soil data',
+        'Integrated Google Gemini API for real-time AI-driven crop recommendations based on region and soil data',
         'Built modules for multi-cropping strategies, irrigation planning, and cost-based advisory',
       ],
     },
@@ -107,128 +106,141 @@ const resumeData = {
 }
 
 export default function Resume() {
+  const resumeRef = useRef(null)
+  const [downloading, setDownloading] = useState(false)
+
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
-  const handleDownload = () => {
-    window.print()
+  const handleDownload = async () => {
+    setDownloading(true)
+    try {
+      const html2pdf = (await import('html2pdf.js')).default
+      const element = resumeRef.current
+      const opt = {
+        margin: 0,
+        filename: 'Harshad_Dhonde_Resume.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      }
+      await html2pdf().set(opt).from(element).save()
+    } catch (err) {
+      console.error('PDF generation failed:', err)
+      window.print()
+    }
+    setDownloading(false)
   }
 
   return (
     <>
-      {/* Screen-only nav bar */}
-      <nav className="print-hide fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-[#050810]/90 backdrop-blur border-b border-white/5">
-        <Link to="/" className="flex items-center gap-2 text-white/60 hover:text-[#00f5d4] transition-colors font-cabinet text-sm">
+      {/* Screen-only top bar */}
+      <div className="print-hide fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-3 bg-[#0a0f1c]/95 backdrop-blur-xl border-b border-white/5">
+        <Link to="/" className="flex items-center gap-2 text-white/50 hover:text-[#00f5d4] transition-colors font-cabinet text-sm">
           <ArrowLeft size={16} /> Back to Portfolio
         </Link>
         <button
           onClick={handleDownload}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#00f5d4] text-[#050810] font-cabinet font-semibold text-sm hover:bg-[#00f5d4]/90 transition-all"
+          disabled={downloading}
+          className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#00f5d4] text-[#050810] font-cabinet font-bold text-sm hover:shadow-lg hover:shadow-[#00f5d4]/25 transition-all disabled:opacity-60"
         >
-          <Download size={16} /> Download PDF
+          {downloading ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />}
+          {downloading ? 'Generating...' : 'Download PDF'}
         </button>
-      </nav>
+      </div>
 
-      {/* Resume content */}
-      <div className="resume-page min-h-screen bg-white text-gray-900 pt-20 pb-16 print:pt-0 print:pb-0">
-        <div className="max-w-[850px] mx-auto px-8 print:px-0 print:max-w-none">
-
-          {/* Header */}
-          <header className="mb-5 border-b-2 border-gray-800 pb-4">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900 print:text-2xl">{resumeData.name}</h1>
-            <p className="text-sm text-gray-600 mt-0.5 font-medium">{resumeData.title}</p>
-            <div className="flex flex-wrap gap-x-5 gap-y-1 mt-2 text-xs text-gray-600">
-              <a href={`tel:${resumeData.phone}`} className="flex items-center gap-1 hover:text-blue-700 print:text-gray-700">
-                <Phone size={11} /> {resumeData.phone}
-              </a>
-              <a href={`mailto:${resumeData.email}`} className="flex items-center gap-1 hover:text-blue-700 print:text-gray-700">
-                <Mail size={11} /> {resumeData.email}
-              </a>
-              <a href={`https://github.com/${resumeData.github}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-blue-700 print:text-gray-700">
-                <Github size={11} /> {resumeData.github}
-              </a>
-              <a href={`https://linkedin.com/in/${resumeData.linkedin}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-blue-700 print:text-gray-700">
-                <Linkedin size={11} /> {resumeData.linkedin}
-              </a>
-              <span className="flex items-center gap-1">
-                <MapPin size={11} /> {resumeData.location}
-              </span>
+      {/* Resume wrapper — white background for screen viewing */}
+      <div className="min-h-screen bg-[#f0f2f5] pt-16 pb-10 print:bg-white print:pt-0 print:pb-0">
+        {/* A4 paper container */}
+        <div
+          ref={resumeRef}
+          id="resume-root"
+          className="resume-sheet"
+        >
+          {/* ──── HEADER ──── */}
+          <div className="resume-header">
+            <h1>{resumeData.name}</h1>
+            <p className="resume-subtitle">{resumeData.title}</p>
+            <div className="resume-contact">
+              <span>📞 {resumeData.phone}</span>
+              <span className="resume-sep">|</span>
+              <span>✉ {resumeData.email}</span>
+              <span className="resume-sep">|</span>
+              <span>🔗 <a href={`https://github.com/${resumeData.github}`} target="_blank" rel="noopener noreferrer">github.com/{resumeData.github}</a></span>
+              <span className="resume-sep">|</span>
+              <span>🔗 <a href={`https://linkedin.com/in/${resumeData.linkedin}`} target="_blank" rel="noopener noreferrer">linkedin.com/in/{resumeData.linkedin}</a></span>
+              <span className="resume-sep">|</span>
+              <span>📍 {resumeData.location}</span>
             </div>
-          </header>
+          </div>
 
-          {/* Summary */}
-          <Section title="Summary">
-            <p className="text-[13px] leading-relaxed text-gray-700">{resumeData.summary}</p>
-          </Section>
+          {/* ──── SUMMARY ──── */}
+          <div className="resume-section">
+            <h2>SUMMARY</h2>
+            <p>{resumeData.summary}</p>
+          </div>
 
-          {/* Education */}
-          <Section title="Education">
+          {/* ──── EDUCATION ──── */}
+          <div className="resume-section">
+            <h2>EDUCATION</h2>
             {resumeData.education.map((edu, i) => (
-              <div key={i} className="mb-2.5 last:mb-0">
-                <div className="flex justify-between items-baseline flex-wrap gap-x-2">
-                  <h3 className="text-sm font-semibold text-gray-900">{edu.institution}</h3>
-                  <span className="text-xs text-gray-500 font-medium">{edu.status}</span>
+              <div key={i} className="resume-entry">
+                <div className="resume-entry-header">
+                  <strong>{edu.institution}</strong>
+                  <span className="resume-date">{edu.status}</span>
                 </div>
-                <p className="text-xs text-gray-600 italic">{edu.degree}</p>
-                <p className="text-xs text-gray-500">{edu.score}</p>
+                <div className="resume-entry-sub">
+                  <em>{edu.degree}</em>
+                  <span>{edu.score}</span>
+                </div>
               </div>
             ))}
-          </Section>
+          </div>
 
-          {/* Technical Skills */}
-          <Section title="Technical Skills">
-            <div className="space-y-1">
+          {/* ──── TECHNICAL SKILLS ──── */}
+          <div className="resume-section">
+            <h2>TECHNICAL SKILLS</h2>
+            <div className="resume-skills">
               {resumeData.skills.map((s, i) => (
-                <div key={i} className="text-[13px] leading-snug">
-                  <span className="font-semibold text-gray-900">{s.category}: </span>
-                  <span className="text-gray-700">{s.items}</span>
+                <div key={i} className="resume-skill-row">
+                  <span className="resume-skill-cat">{s.category}:</span>
+                  <span>{s.items}</span>
                 </div>
               ))}
             </div>
-          </Section>
+          </div>
 
-          {/* Projects */}
-          <Section title="Projects">
+          {/* ──── PROJECTS ──── */}
+          <div className="resume-section">
+            <h2>PROJECTS</h2>
             {resumeData.projects.map((p, i) => (
-              <div key={i} className="mb-3 last:mb-0">
-                <div className="flex justify-between items-baseline flex-wrap gap-x-2">
-                  <h3 className="text-sm font-semibold text-gray-900">{p.name}</h3>
-                  <a href={p.github} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-700 hover:underline print:text-gray-600 flex-shrink-0">
-                    GitHub ↗
-                  </a>
+              <div key={i} className="resume-project">
+                <div className="resume-entry-header">
+                  <strong>{p.name}</strong>
+                  <a href={p.github} target="_blank" rel="noopener noreferrer" className="resume-github">GitHub ↗</a>
                 </div>
-                <p className="text-xs italic text-gray-500 mb-1">{p.tech}</p>
-                <ul className="list-disc list-outside ml-4 space-y-0.5">
+                <em className="resume-tech">{p.tech}</em>
+                <ul>
                   {p.points.map((pt, j) => (
-                    <li key={j} className="text-[12.5px] leading-snug text-gray-700">{pt}</li>
+                    <li key={j}>{pt}</li>
                   ))}
                 </ul>
               </div>
             ))}
-          </Section>
+          </div>
 
-          {/* Achievements */}
-          <Section title="Achievements">
-            <ul className="list-disc list-outside ml-4 space-y-1">
+          {/* ──── ACHIEVEMENTS ──── */}
+          <div className="resume-section">
+            <h2>ACHIEVEMENTS</h2>
+            <ul>
               {resumeData.achievements.map((a, i) => (
-                <li key={i} className="text-[13px] text-gray-700">{a}</li>
+                <li key={i}>{a}</li>
               ))}
             </ul>
-          </Section>
+          </div>
         </div>
       </div>
     </>
-  )
-}
-
-function Section({ title, children }) {
-  return (
-    <section className="mb-4">
-      <h2 className="text-base font-bold text-gray-900 uppercase tracking-wide border-b border-gray-300 pb-0.5 mb-2">
-        {title}
-      </h2>
-      {children}
-    </section>
   )
 }

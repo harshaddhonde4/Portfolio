@@ -152,24 +152,190 @@ a:focus-visible, button:focus-visible {
   border-radius: 4px;
 }
 
-/* Resume page — override dark theme */
-.resume-page {
-  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+/* ═══════════════════════════════════════════════════════
+   RESUME SHEET — ATS-Friendly Professional Design
+   ═══════════════════════════════════════════════════════ */
+
+.resume-sheet {
+  width: 210mm;
+  min-height: 297mm;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 14mm 16mm;
+  background: #ffffff;
+  color: #1a1a1a;
+  font-family: 'Georgia', 'Times New Roman', 'Cambria', serif;
+  font-size: 10px;
+  line-height: 1.35;
+  box-shadow: 0 4px 40px rgba(0,0,0,0.18);
+  box-sizing: border-box;
 }
 
-/* Print styles for PDF download */
+/* ── Header ── */
+.resume-header {
+  text-align: center;
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+  border-bottom: 2px solid #1a1a1a;
+}
+.resume-header h1 {
+  font-family: 'Georgia', serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #111;
+  margin: 0 0 2px 0;
+  line-height: 1.15;
+}
+.resume-subtitle {
+  font-size: 10.5px;
+  color: #444;
+  font-style: italic;
+  margin: 0 0 5px 0;
+  letter-spacing: 0.3px;
+}
+.resume-contact {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3px 4px;
+  font-size: 9px;
+  color: #333;
+}
+.resume-contact a {
+  color: #1a5276;
+  text-decoration: none;
+}
+.resume-contact a:hover { text-decoration: underline; }
+.resume-sep {
+  color: #999;
+  margin: 0 2px;
+}
+
+/* ── Section ── */
+.resume-section {
+  margin-bottom: 5px;
+}
+.resume-section h2 {
+  font-family: 'Georgia', serif;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #1a1a1a;
+  margin: 0 0 3px 0;
+  padding-bottom: 2px;
+  border-bottom: 1.5px solid #2c3e50;
+}
+.resume-section > p {
+  font-size: 9.5px;
+  color: #333;
+  margin: 2px 0 0 0;
+  text-align: justify;
+}
+
+/* ── Entry (Education) ── */
+.resume-entry {
+  margin-bottom: 3px;
+}
+.resume-entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.resume-entry-header strong {
+  font-size: 10px;
+  color: #111;
+}
+.resume-date {
+  font-size: 9px;
+  color: #555;
+  font-style: italic;
+  flex-shrink: 0;
+}
+.resume-entry-sub {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: #555;
+}
+.resume-entry-sub em {
+  font-style: italic;
+}
+
+/* ── Skills ── */
+.resume-skills {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.resume-skill-row {
+  font-size: 9.5px;
+  color: #333;
+  line-height: 1.4;
+}
+.resume-skill-cat {
+  font-weight: 700;
+  color: #111;
+}
+
+/* ── Projects ── */
+.resume-project {
+  margin-bottom: 4px;
+}
+.resume-project .resume-entry-header strong {
+  font-size: 10px;
+}
+.resume-github {
+  font-size: 8.5px;
+  color: #1a5276;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.resume-github:hover { text-decoration: underline; }
+.resume-tech {
+  display: block;
+  font-size: 9px;
+  color: #555;
+  font-style: italic;
+  margin: 0 0 1px 0;
+}
+
+/* ── Lists ── */
+.resume-section ul {
+  margin: 1px 0 0 0;
+  padding-left: 14px;
+  list-style-type: disc;
+}
+.resume-section ul li {
+  font-size: 9px;
+  color: #333;
+  line-height: 1.35;
+  margin-bottom: 0;
+}
+
+/* ═══════════════════════
+   PRINT STYLES
+   ═══════════════════════ */
 @media print {
-  body { background: white !important; color: black !important; }
-  .print-hide, nav, .cursor, .cursor-follower { display: none !important; }
-  .resume-page {
-    padding: 0 !important;
+  html, body {
     margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .print-hide, nav, .cursor, .cursor-follower { display: none !important; }
+  .resume-sheet {
+    box-shadow: none !important;
+    padding: 10mm 12mm !important;
+    width: 100% !important;
+    min-height: auto !important;
   }
   @page {
     size: A4;
-    margin: 12mm 14mm;
+    margin: 0;
   }
-  a { color: #333 !important; text-decoration: none !important; }
-  h1, h2, h3 { break-after: avoid; }
-  section { break-inside: avoid; }
+  a { color: #333 !important; }
 }

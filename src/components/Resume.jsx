@@ -113,24 +113,18 @@ export default function Resume() {
     window.scrollTo(0, 0)
   }, [])
 
-  const handleDownload = async () => {
+  const handleDownload = () => {
     setDownloading(true)
-    try {
-      const html2pdf = (await import('html2pdf.js')).default
-      const element = resumeRef.current
-      const opt = {
-        margin: 0,
-        filename: 'Harshad_Dhonde_Resume.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, letterRendering: true },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-      }
-      await html2pdf().set(opt).from(element).save()
-    } catch (err) {
-      console.error('PDF generation failed:', err)
+
+    // Temporarily add a class to body for print-specific overrides
+    document.body.classList.add('printing-resume')
+
+    // Small delay to let the class apply, then print
+    setTimeout(() => {
       window.print()
-    }
-    setDownloading(false)
+      document.body.classList.remove('printing-resume')
+      setDownloading(false)
+    }, 100)
   }
 
   return (
